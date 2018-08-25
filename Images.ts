@@ -1,11 +1,13 @@
 export enum Images {
     BODY = 'res/body.png',
     HEAD = 'res/head.png',
+    KEY = 'res/goldenkey.png',
 }
 
 export const ImagesLoaded: {[id in keyof typeof Images]: HTMLImageElement} = {
     BODY: new Image(),
     HEAD: new Image(),
+    KEY: new Image(),
 };
 
 export var loadedImageSum = 0;
