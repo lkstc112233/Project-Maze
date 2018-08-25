@@ -3,15 +3,21 @@ import { Point } from './xyTuple';
 import { Controller } from './Controller';
 import { loadedImageSum, totalImageSum, loadAll } from './Images';
 import { Scene } from './Scene';
+import { Key } from './Key';
 
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const context = canvas.getContext('2d')!;
 
 const char = new Character();
+const key = new Key();
 const controller = new Controller();
+
+key.position.x = 100;
+key.position.y = 100;
 
 const scene = new Scene();
 scene.add(char);
+scene.add(key);
 
 function loadLoop() {
     if (loadedImageSum != totalImageSum) {
