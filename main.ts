@@ -1,12 +1,18 @@
 import { Point } from './xyTuple';
 import { Controller } from './Controller';
 import { loadedImageSum, totalImageSum, loadAll } from './Images';
-import { Game } from './Game';
+import { Builder as GameBuilder } from './Game';
 
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const context = canvas.getContext('2d')!;
 
-const game = new Game();
+const gameBuilder = new GameBuilder();
+gameBuilder.boundryLeft = 100;
+gameBuilder.boundryRight = 400;
+gameBuilder.boundryTop = 50;
+gameBuilder.boundryBottom = 300;
+gameBuilder.keyInitial = new Point(250, 200);
+const game = gameBuilder.build();
 game.begin();
 
 const controller = new Controller();
