@@ -4,6 +4,7 @@ import { ImagesLoaded } from './Images';
 
 export class Key implements Sprite {
     private floatingFrame = 0;
+    private keyTaken = false;
     position: Point = new Point();
 
     get z(): number {
@@ -11,7 +12,11 @@ export class Key implements Sprite {
     }
 
     get decay(): boolean {
-        return false;
+        return this.keyTaken;
+    }
+
+    taken() {
+        this.keyTaken = true;
     }
 
     draw(context: CanvasRenderingContext2D) {
