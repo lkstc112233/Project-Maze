@@ -36,6 +36,7 @@ export class Character implements Sprite {
     private headSpin = 0;
     private headOffset = 0;
     private afterImageCooldown = 0;
+    private m_taken = false;
     position = new Point();
     velocity = new Point();
 
@@ -58,6 +59,10 @@ export class Character implements Sprite {
         return [];
     }
 
+    taken() {
+        this.m_taken = true;
+    }
+
     update() {
         // Update status
         this.velocity.mul(0.97);
@@ -77,7 +82,8 @@ export class Character implements Sprite {
         // Update headOffset
         this.headOffset = (this.velocity.length * 0.2 + 1) * (Math.sin(this.headSpin += Math.PI / 60) + 1);
 
-        drawCharacterImage(context, 'BODY', WALKING_STEPS[Math.floor(this.frame / WALKING_CONSTANT)], this.velocity.direction, this.position.x, this.position.y, size);
+        const bodyType = this.m_taken? 'BODY_HOLDING': 'BODY';
+        drawCharacterImage(context, bodyType, WALKING_STEPS[Math.floor(this.frame / WALKING_CONSTANT)], this.velocity.direction, this.position.x, this.position.y, size);
         drawCharacterImage(context, 'HEAD', 0, this.velocity.direction, this.position.x, this.position.y + this.headOffset, size);
     }
 }

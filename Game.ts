@@ -94,6 +94,12 @@ export class Game {
         this.m_accelerate.mul(0.3);
     }
 
+    private get playerKeyDistance(): number {
+        const dx = this.key.position.x - this.player.position.x - 20;
+        const dy = this.key.position.y - this.player.position.y - 20;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
     begin() {
         this.m_status = Status.PLAYING;
     }
@@ -121,6 +127,11 @@ export class Game {
             this.player.velocity.y = 0;
             this.player.position.y = this.boundryBottom - 40;
         }
+        if (this.playerKeyDistance < 20) {
+            this.key.taken();
+            this.player.taken();
+        }
+
         this.scene.update();
     }
 
