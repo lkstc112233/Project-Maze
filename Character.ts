@@ -7,7 +7,7 @@ class CharacterAfterImage implements Sprite {
     constructor(private readonly position: Point, private readonly frame: number, private readonly headOffset: number, private readonly direction:Direction) {}
 
     get z(): number {
-        return this.position.y - 50;
+        return this.position.y - 10;
     }
 
     get decay(): boolean {
@@ -40,7 +40,7 @@ export class Character implements Sprite {
     velocity = new Point();
 
     get z(): number {
-        return this.position.y; 
+        return this.position.y + 40; 
     }
 
     get decay(): boolean {

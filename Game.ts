@@ -109,17 +109,17 @@ export class Game {
             this.player.velocity.x = 0;
             this.player.position.x = this.boundryLeft;
         }
-        if (this.player.position.y < this.boundryTop) {
+        if (this.player.position.y < this.boundryTop - 20) {
             this.player.velocity.y = 0;
-            this.player.position.y = this.boundryTop;
+            this.player.position.y = this.boundryTop - 20;
         }
-        if (this.player.position.x > this.boundryRight) {
+        if (this.player.position.x > this.boundryRight - 40) {
             this.player.velocity.x = 0;
-            this.player.position.x = this.boundryRight;
+            this.player.position.x = this.boundryRight - 40;
         }
-        if (this.player.position.y > this.boundryBottom) {
+        if (this.player.position.y > this.boundryBottom - 40) {
             this.player.velocity.y = 0;
-            this.player.position.y = this.boundryBottom;
+            this.player.position.y = this.boundryBottom - 40;
         }
         this.scene.update();
     }
