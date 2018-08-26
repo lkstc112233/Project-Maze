@@ -1,4 +1,4 @@
-import { Scene } from "./Scene";
+import { Scene, Sprite } from "./Scene";
 import { Character } from "./Character";
 import { Key } from "./Key";
 import { Point } from "./xyTuple";
@@ -31,6 +31,34 @@ export class Builder {
     }
 }
 
+class Boundry implements Sprite {
+    readonly decay = false;
+    constructor(
+        private readonly left: number, 
+        private readonly top: number, 
+        private readonly right: number,
+        private readonly bottom: number,
+    ) {
+
+    }
+
+    get z(): number {
+        return this.top;
+    }
+
+    draw(context: CanvasRenderingContext2D) {
+        context.save();
+
+        context.beginPath();
+        context.lineWidth = 5;
+        context.strokeStyle = 'black';
+        context.rect(this.left, this.top, this.right - this.left, this.bottom - this.top);
+        context.stroke();
+
+        context.restore();
+    }
+}
+
 export class Game {
     private m_scene: Scene = new Scene();
     private player: Character = new Character();
@@ -50,6 +78,7 @@ export class Game {
         this.key.position = keyInitial.clone();
         this.scene.add(this.player);
         this.scene.add(this.key);
+        this.scene.add(new Boundry(this.boundryLeft, this.boundryTop,this.boundryRight, this.boundryBottom));
     }
 
     get scene(): Scene {
