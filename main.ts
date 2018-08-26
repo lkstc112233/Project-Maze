@@ -1,23 +1,15 @@
-import { Character } from './Character';
 import { Point } from './xyTuple';
 import { Controller } from './Controller';
 import { loadedImageSum, totalImageSum, loadAll } from './Images';
-import { Scene } from './Scene';
-import { Key } from './Key';
+import { Game } from './Game';
 
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const context = canvas.getContext('2d')!;
 
-const char = new Character();
-const key = new Key();
+const game = new Game();
+game.begin();
+
 const controller = new Controller();
-
-key.position.x = 100;
-key.position.y = 100;
-
-const scene = new Scene();
-scene.add(char);
-scene.add(key);
 
 function loadLoop() {
     if (loadedImageSum != totalImageSum) {
@@ -40,11 +32,9 @@ function loadLoop() {
 function gameLoop() {
     requestAnimationFrame(gameLoop);
     context.clearRect(0, 0, canvas.width, canvas.height);
-    const acc = controller.getControllerValue();
-    acc.mul(0.3);
-    char.velocity.plus(acc);
-    scene.draw(context);
-    scene.update();
+    game.accelerate = controller.getControllerValue();
+    game.update();
+    game.draw(context);
     controller.draw(context);
 }
 
