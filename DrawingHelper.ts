@@ -10,3 +10,7 @@ export function circle(context: CanvasRenderingContext2D, x: number, y: number, 
 export function drawCharacterImage(context: CanvasRenderingContext2D, image: keyof typeof Images, row: number, column: number, x: number, y: number, size: number) {
     context.drawImage(ImagesLoaded[image], row * 16, column * 16, 16, 16, x, y, size, size);
 }
+
+export function drawKeyImage(context: CanvasRenderingContext2D, x: number, y: number, size: number, flip: boolean = false) {
+    context.drawImage(ImagesLoaded['KEY'], x, y, flip? -size: size, size);
+}

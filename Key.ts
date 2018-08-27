@@ -1,6 +1,7 @@
 import { Point } from './xyTuple'
 import { Sprite } from './Scene'
 import { ImagesLoaded } from './Images';
+import { drawKeyImage } from './DrawingHelper';
 
 export class Key implements Sprite {
     private floatingFrame = 0;
@@ -34,6 +35,6 @@ export class Key implements Sprite {
         context.ellipse(this.position.x, this.position.y, radiusRate, radiusRate / 2, 0, 0, Math.PI * 2);
         context.fill();
         context.restore();
-        context.drawImage(ImagesLoaded['KEY'], this.position.x - size / 2, this.position.y - size / 2 + yOffset, size, size);
+        drawKeyImage(context, this.position.x - size / 2, this.position.y - size / 2 + yOffset, size);
     }
 }
