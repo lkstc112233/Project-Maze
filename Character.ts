@@ -4,6 +4,21 @@ import { Sprite } from './Scene';
 
 const CHARACTER_SIZE = 40;
 const CHARACTER_WALKING_CONSTANT = 30;
+const WALKING_STEPS = [0, 1, 0, 2];
+
+function drawCharacter(
+    context: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    headOffset: number,
+    step: number,
+    holdingKey: boolean,
+    direction: Direction,
+    size: number = CHARACTER_SIZE) {
+    const bodyType = holdingKey ? 'BODY_HOLDING' : 'BODY';
+    drawCharacterImage(context, bodyType, step, direction, x, y, size);
+    drawCharacterImage(context, 'HEAD', 0, direction, x, y + headOffset, size);
+}
 
 class CharacterAfterImage implements Sprite {
     private lifeCountdown = 20;
@@ -23,20 +38,21 @@ class CharacterAfterImage implements Sprite {
         return this.lifeCountdown <= 0;
     }
 
-    private drawCharacter(context: CanvasRenderingContext2D, size: number) {
-        const WALKING_STEPS = [0, 1, 0, 2];
-        const bodyType = this.holdingKey? 'BODY_HOLDING': 'BODY';
-        drawCharacterImage(context, bodyType, WALKING_STEPS[Math.floor(this.frame / CHARACTER_WALKING_CONSTANT)], this.direction, this.position.x, this.position.y, size);
-        drawCharacterImage(context, 'HEAD', 0, this.direction, this.position.x, this.position.y + this.headOffset, size);
-    }
-
     draw(context: CanvasRenderingContext2D) {
         // Draw spirit
         const size = CHARACTER_SIZE + 20 - this.lifeCountdown;
 
         context.save();
         context.globalAlpha = this.lifeCountdown / 40;
-        this.drawCharacter(context, size);
+        drawCharacter(
+            context,
+            this.position.x, 
+            this.position.y,
+            this.headOffset,
+            WALKING_STEPS[Math.floor(this.frame / CHARACTER_WALKING_CONSTANT)],
+            this.holdingKey,
+            this.direction,
+            size);
         context.restore();
 
         // Count down
@@ -66,10 +82,10 @@ export class Character implements Sprite {
             if (this.afterImageCooldown <= 0) {
                 this.afterImageCooldown = 5;
                 return [new CharacterAfterImage(
-                    this.position.clone(), 
-                    this.frame, 
-                    this.headOffset, 
-                    this.velocity.direction, 
+                    this.position.clone(),
+                    this.frame,
+                    this.headOffset,
+                    this.velocity.direction,
                     this.m_taken)];
             }
         }
@@ -104,6 +120,13 @@ export class Character implements Sprite {
         // Update headOffset
         this.headOffset = (this.velocity.length * 0.2 + 1) * (Math.sin(this.headSpin += Math.PI / 60) + 1);
 
-        this.drawCharacter(context);
+        drawCharacter(
+            context,
+            this.position.x, 
+            this.position.y,
+            this.headOffset,
+            WALKING_STEPS[Math.floor(this.frame / CHARACTER_WALKING_CONSTANT)],
+            this.m_taken,
+            this.velocity.direction);
     }
 }
