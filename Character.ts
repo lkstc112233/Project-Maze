@@ -7,7 +7,11 @@ const CHARACTER_WALKING_CONSTANT = 30;
 
 class CharacterAfterImage implements Sprite {
     private lifeCountdown = 20;
-    constructor(private readonly position: Point, private readonly frame: number, private readonly headOffset: number, private readonly direction:Direction) {}
+    constructor(
+        private readonly position: Point, 
+        private readonly frame: number, 
+        private readonly headOffset: number, 
+        private readonly direction:Direction) {}
 
     get z(): number {
         return this.position.y - 10;
