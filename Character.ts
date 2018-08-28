@@ -49,7 +49,7 @@ export class Character implements Sprite {
     }
 
     generate(): Sprite[] {
-        if (this.velocity.length > 4) {
+        if (this.velocity.length > 6) {
             if (this.afterImageCooldown <= 0) {
                 this.afterImageCooldown = 5;
                 return [new CharacterAfterImage(this.position.clone(), this.frame, this.headOffset, this.velocity.direction)];
