@@ -15,6 +15,10 @@ export class Key implements Sprite {
         return this.keyTaken;
     }
 
+    get gone(): boolean {
+        return this.keyTaken;
+    }
+
     taken() {
         this.keyTaken = true;
     }

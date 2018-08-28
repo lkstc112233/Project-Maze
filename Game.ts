@@ -101,6 +101,9 @@ class Game {
     }
 
     private get playerKeyDistance(): number {
+        if (this.key.gone) {
+            return Infinity;
+        }
         const dx = this.key.position.x - this.player.position.x;
         const dy = this.key.position.y - this.player.position.y - 20;
         return Math.sqrt(dx * dx + dy * dy);
