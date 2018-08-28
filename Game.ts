@@ -146,6 +146,10 @@ class Game {
             this.key.taken();
             this.player.taken();
         }
+        if (this.playerChestDistance < 20 && this.player.holding) {
+            this.chest.open();
+            this.player.untaken();
+        }
 
         this.scene.update();
     }
