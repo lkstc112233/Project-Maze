@@ -12,7 +12,7 @@ class OpeningChest implements Sprite {
     }
 
     get z(): number {
-        return this.position.y;
+        return this.position.y + 40;
     }
 
     get decay(): boolean {
