@@ -109,6 +109,12 @@ class Game {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
+    private get playerChestDistance(): number {
+        const dx = this.chest.position.x - this.player.position.x;
+        const dy = this.chest.position.y - this.player.position.y;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
     begin() {
         this.m_status = Status.PLAYING;
     }
