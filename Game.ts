@@ -2,6 +2,7 @@ import { Scene, Sprite } from "./Scene";
 import { Character } from "./Character";
 import { Key } from "./Key";
 import { Point } from "./xyTuple";
+import { Chest } from "./Chest";
 
 export enum Status {
     IDLE,
@@ -18,6 +19,7 @@ export class Builder {
 
     playerInitial: Point = new Point();
     keyInitial: Point = new Point();
+    chestInitial: Point = new Point();
 
     build(): Game {
         const result = new Game(
@@ -25,6 +27,7 @@ export class Builder {
             this.height,
             this.playerInitial,
             this.keyInitial,
+            this.chestInitial,
             new Point(
                 this.left, 
                 this.top, ),
@@ -63,6 +66,7 @@ class Game {
     private m_scene: Scene = new Scene();
     private player: Character = new Character();
     private key: Key = new Key();
+    private chest: Chest = new Chest();
     private m_status = Status.IDLE;
     private m_accelerate: Point = new Point();
 
@@ -71,12 +75,15 @@ class Game {
         private readonly height: number,
         readonly playerInitial: Point,
         readonly keyInitial: Point,
+        readonly chestInitial: Point,
         private leftTopPoint: Point,
     ) {
         this.player.position = playerInitial.clone();
         this.key.position = keyInitial.clone();
+        this.chest.position = chestInitial.clone();
         this.scene.add(this.player);
         this.scene.add(this.key);
+        this.scene.add(this.chest);
         this.scene.add(new Boundry(this.width, this.height));
     }
 

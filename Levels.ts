@@ -8,3 +8,4 @@ LevelB1.top = 50;
 LevelB1.height = 550;
 LevelB1.keyInitial = new Point(250, 200);
 LevelB1.playerInitial = new Point(100, 50);
+LevelB1.chestInitial = new Point(400, 350);
