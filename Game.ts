@@ -28,9 +28,7 @@ export class Builder {
             this.playerInitial,
             this.keyInitial,
             this.chestInitial,
-            new Point(
-                this.left, 
-                this.top, ),
+            new Point(this.left, this.top)
         );
         return result;
     }
