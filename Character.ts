@@ -98,6 +98,10 @@ export class Character implements Sprite {
         return false;
     }
 
+    get holding(): boolean {
+        return this.m_taken;
+    }
+
     generate(): Sprite[] {
         if (this.velocity.length > 6) {
             if (this.afterImageCooldown <= 0) {
@@ -107,7 +111,7 @@ export class Character implements Sprite {
                     this.frame,
                     this.headOffset,
                     this.velocity.direction,
-                    this.m_taken)];
+                    this.holding)];
             }
         }
         this.afterImageCooldown -= 1;
@@ -140,7 +144,7 @@ export class Character implements Sprite {
             this.position.y,
             this.headOffset,
             WALKING_STEPS[Math.floor(this.frame / CHARACTER_WALKING_CONSTANT)],
-            this.m_taken,
+            this.holding,
             this.velocity.direction);
     }
 }
