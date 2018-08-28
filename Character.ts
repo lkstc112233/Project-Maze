@@ -1,5 +1,5 @@
 import { Point, Direction } from './xyTuple';
-import { drawCharacterImage } from './DrawingHelper';
+import { drawCharacterImage, drawKeyImage } from './DrawingHelper';
 import { Sprite } from './Scene';
 
 const CHARACTER_SIZE = 40;
@@ -15,9 +15,30 @@ function drawCharacter(
     holdingKey: boolean,
     direction: Direction,
     size: number = CHARACTER_SIZE) {
-    const bodyType = holdingKey ? 'BODY_HOLDING' : 'BODY';
-    drawCharacterImage(context, bodyType, step, direction, x, y, size);
-    drawCharacterImage(context, 'HEAD', 0, direction, x, y + headOffset, size);
+    const drawBody = (type: 'BODY_HOLDING' | 'BODY') => {
+        drawCharacterImage(context, type, step, direction, x, y, size);
+        drawCharacterImage(context, 'HEAD', 0, direction, x, y + headOffset, size);
+    }
+    const drawKey = (x: number, y: number, flip?: boolean) => {
+        drawKeyImage(context, x, y, size, flip);
+    }
+    if (holdingKey) {
+        if (direction == Direction.UP) {
+            drawKey(x, y - size / 2);
+            drawBody('BODY_HOLDING');
+        } else if (direction == Direction.DOWN) {
+            drawBody('BODY_HOLDING');
+            drawKey(x, y + size / 2);
+        } else if (direction == Direction.LEFT) {
+            drawBody('BODY_HOLDING');
+            drawKey(x - size * 0.7, y, true);
+        } else if (direction == Direction.RIGHT) {
+            drawBody('BODY_HOLDING');
+            drawKey(x + size * 0.7, y);
+        }
+    } else {
+        drawBody('BODY');
+    }
 }
 
 class CharacterAfterImage implements Sprite {
