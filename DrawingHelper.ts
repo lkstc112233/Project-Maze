@@ -20,3 +20,12 @@ export function drawKeyImage(context: CanvasRenderingContext2D, x: number, y: nu
     context.drawImage(ImagesLoaded['KEY'], x - size / 2, y - size / 2, size, size);
     context.restore();
 }
+
+export function drawChestImage(context: CanvasRenderingContext2D, process: number, x: number, y: number, size: number) {
+    if (process > 6) {
+        process = 6;
+    }
+    const row = process / 4;
+    const column = process % 4;
+    context.drawImage(ImagesLoaded['CHEST'], row * 35, column * 35, 35, 35, x - size / 2, y - size / 2, size, size);
+}
