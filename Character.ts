@@ -124,13 +124,6 @@ export class Character implements Sprite {
         this.position.plus(this.velocity);
     }
 
-    private drawCharacter(context: CanvasRenderingContext2D) {
-        const WALKING_STEPS = [0, 1, 0, 2];
-        const bodyType = this.m_taken ? 'BODY_HOLDING' : 'BODY';
-        drawCharacterImage(context, bodyType, WALKING_STEPS[Math.floor(this.frame / CHARACTER_WALKING_CONSTANT)], this.velocity.direction, this.position.x, this.position.y, CHARACTER_SIZE);
-        drawCharacterImage(context, 'HEAD', 0, this.velocity.direction, this.position.x, this.position.y + this.headOffset, CHARACTER_SIZE);
-    }
-
     draw(context: CanvasRenderingContext2D) {
         // Draw spirit
         this.frame += this.velocity.length;
