@@ -59,7 +59,7 @@ class Boundry implements Sprite {
     }
 }
 
-export class Game {
+class Game {
     private m_scene: Scene = new Scene();
     private player: Character = new Character();
     private key: Key = new Key();
