@@ -95,7 +95,7 @@ export class Game {
     }
 
     private get playerKeyDistance(): number {
-        const dx = this.key.position.x - this.player.position.x - 20;
+        const dx = this.key.position.x - this.player.position.x;
         const dy = this.key.position.y - this.player.position.y - 20;
         return Math.sqrt(dx * dx + dy * dy);
     }
@@ -111,21 +111,21 @@ export class Game {
         this.player.velocity.plus(this.m_accelerate);
         this.player.update();
         // Boundry check
-        if (this.player.position.x < this.boundryLeft) {
+        if (this.player.position.x < this.boundryLeft + 20) {
             this.player.velocity.x = 0;
-            this.player.position.x = this.boundryLeft;
+            this.player.position.x = this.boundryLeft + 20;
         }
-        if (this.player.position.y < this.boundryTop - 20) {
+        if (this.player.position.y < this.boundryTop) {
             this.player.velocity.y = 0;
-            this.player.position.y = this.boundryTop - 20;
+            this.player.position.y = this.boundryTop;
         }
-        if (this.player.position.x > this.boundryRight - 40) {
+        if (this.player.position.x > this.boundryRight - 20) {
             this.player.velocity.x = 0;
-            this.player.position.x = this.boundryRight - 40;
+            this.player.position.x = this.boundryRight - 20;
         }
-        if (this.player.position.y > this.boundryBottom - 40) {
+        if (this.player.position.y > this.boundryBottom - 20) {
             this.player.velocity.y = 0;
-            this.player.position.y = this.boundryBottom - 40;
+            this.player.position.y = this.boundryBottom - 20;
         }
         if (this.playerKeyDistance < 20) {
             this.key.taken();
