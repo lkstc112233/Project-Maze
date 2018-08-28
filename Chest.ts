@@ -7,6 +7,9 @@ const CHEST_SIZE = 40;
 class OpeningChest implements Sprite {
     private decayProcess = 0;
     position: Point = new Point();
+    constructor(position: Point) {
+        this.position = position.clone();
+    }
 
     get z(): number {
         return this.position.y;
@@ -40,7 +43,7 @@ export class Chest implements Sprite {
 
     generate(): Sprite[] {
         if (this.opening) {
-            return [new OpeningChest()];
+            return [new OpeningChest(this.position)];
         }
         return [];
     }

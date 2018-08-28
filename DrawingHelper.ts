@@ -25,7 +25,8 @@ export function drawChestImage(context: CanvasRenderingContext2D, process: numbe
     if (process > 6) {
         process = 6;
     }
-    const row = process / 4;
-    const column = process % 4;
+    const column = Math.floor(process / 4);
+    const row = process % 4;
+    console.log(process, row, column);
     context.drawImage(ImagesLoaded['CHEST'], row * 35, column * 35, 35, 35, x - size / 2, y - size / 2, size, size);
 }
