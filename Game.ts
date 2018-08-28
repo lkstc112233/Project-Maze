@@ -117,8 +117,13 @@ class Game {
         this.m_status = Status.PLAYING;
     }
 
+    private win() {
+        this.m_status = Status.WIN;
+    }
+
     update() {
         if (this.status != Status.PLAYING) {
+            this.scene.update();
             return;
         }
         this.player.velocity.plus(this.m_accelerate);
@@ -147,6 +152,8 @@ class Game {
         if (this.playerChestDistance < 20 && this.player.holding) {
             this.chest.open();
             this.player.untaken();
+            this.player.velocity.zero();
+            this.win();
         }
 
         this.scene.update();
