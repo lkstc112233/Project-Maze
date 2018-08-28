@@ -1,6 +1,5 @@
 import { Point } from './xyTuple'
 import { Sprite } from './Scene'
-import { ImagesLoaded } from './Images';
 import { drawKeyImage } from './DrawingHelper';
 
 export class Key implements Sprite {
