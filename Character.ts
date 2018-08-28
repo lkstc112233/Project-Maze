@@ -11,7 +11,9 @@ class CharacterAfterImage implements Sprite {
         private readonly position: Point, 
         private readonly frame: number, 
         private readonly headOffset: number, 
-        private readonly direction:Direction) {}
+        private readonly direction: Direction,
+        private readonly holdingKey: boolean,
+    ) {}
 
     get z(): number {
         return this.position.y - 10;
@@ -21,15 +23,20 @@ class CharacterAfterImage implements Sprite {
         return this.lifeCountdown <= 0;
     }
 
+    private drawCharacter(context: CanvasRenderingContext2D, size: number) {
+        const WALKING_STEPS = [0, 1, 0, 2];
+        const bodyType = this.holdingKey? 'BODY_HOLDING': 'BODY';
+        drawCharacterImage(context, bodyType, WALKING_STEPS[Math.floor(this.frame / CHARACTER_WALKING_CONSTANT)], this.direction, this.position.x, this.position.y, size);
+        drawCharacterImage(context, 'HEAD', 0, this.direction, this.position.x, this.position.y + this.headOffset, size);
+    }
+
     draw(context: CanvasRenderingContext2D) {
         // Draw spirit
         const size = CHARACTER_SIZE + 20 - this.lifeCountdown;
-        const WALKING_STEPS = [0, 1, 0, 2];
 
         context.save();
         context.globalAlpha = this.lifeCountdown / 40;
-        drawCharacterImage(context, 'BODY', WALKING_STEPS[Math.floor(this.frame / CHARACTER_WALKING_CONSTANT)], this.direction, this.position.x, this.position.y, size);
-        drawCharacterImage(context, 'HEAD', 0, this.direction, this.position.x, this.position.y + this.headOffset, size);
+        this.drawCharacter(context, size);
         context.restore();
 
         // Count down
@@ -58,7 +65,12 @@ export class Character implements Sprite {
         if (this.velocity.length > 6) {
             if (this.afterImageCooldown <= 0) {
                 this.afterImageCooldown = 5;
-                return [new CharacterAfterImage(this.position.clone(), this.frame, this.headOffset, this.velocity.direction)];
+                return [new CharacterAfterImage(
+                    this.position.clone(), 
+                    this.frame, 
+                    this.headOffset, 
+                    this.velocity.direction, 
+                    this.m_taken)];
             }
         }
         this.afterImageCooldown -= 1;
