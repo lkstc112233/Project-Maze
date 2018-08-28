@@ -90,7 +90,7 @@ class Game {
 
     set accelerate(accelerate: Point) {
         this.m_accelerate = accelerate.clone();
-        this.m_accelerate.mul(0.3);
+        this.m_accelerate.mul(0.2);
     }
 
     private get playerKeyDistance(): number {
