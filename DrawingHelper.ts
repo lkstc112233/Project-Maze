@@ -12,5 +12,11 @@ export function drawCharacterImage(context: CanvasRenderingContext2D, image: key
 }
 
 export function drawKeyImage(context: CanvasRenderingContext2D, x: number, y: number, size: number, flip: boolean = false) {
-    context.drawImage(ImagesLoaded['KEY'], x - size / 2, y - size / 2, flip? -size: size, size);
+    context.save();
+    if (flip) {
+        context.scale(-1, 1);
+        x = -x;
+    }
+    context.drawImage(ImagesLoaded['KEY'], x - size / 2, y - size / 2, size, size);
+    context.restore();
 }
