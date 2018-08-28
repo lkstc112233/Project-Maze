@@ -23,12 +23,12 @@ function drawCharacter(
 class CharacterAfterImage implements Sprite {
     private lifeCountdown = 20;
     constructor(
-        private readonly position: Point, 
-        private readonly frame: number, 
-        private readonly headOffset: number, 
+        private readonly position: Point,
+        private readonly frame: number,
+        private readonly headOffset: number,
         private readonly direction: Direction,
         private readonly holdingKey: boolean,
-    ) {}
+    ) { }
 
     get z(): number {
         return this.position.y - 10;
@@ -70,7 +70,7 @@ export class Character implements Sprite {
     velocity = new Point();
 
     get z(): number {
-        return this.position.y + 40; 
+        return this.position.y + 40;
     }
 
     get decay(): boolean {
@@ -105,7 +105,7 @@ export class Character implements Sprite {
 
     private drawCharacter(context: CanvasRenderingContext2D) {
         const WALKING_STEPS = [0, 1, 0, 2];
-        const bodyType = this.m_taken? 'BODY_HOLDING': 'BODY';
+        const bodyType = this.m_taken ? 'BODY_HOLDING' : 'BODY';
         drawCharacterImage(context, bodyType, WALKING_STEPS[Math.floor(this.frame / CHARACTER_WALKING_CONSTANT)], this.velocity.direction, this.position.x, this.position.y, CHARACTER_SIZE);
         drawCharacterImage(context, 'HEAD', 0, this.velocity.direction, this.position.x, this.position.y + this.headOffset, CHARACTER_SIZE);
     }
