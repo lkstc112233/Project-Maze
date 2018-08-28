@@ -1,10 +1,10 @@
 import { Builder as GameBuilder } from './Game';
 import { Point } from './xyTuple';
 
-export const Level1 = new GameBuilder();
-Level1.boundryLeft = 100;
-Level1.boundryRight = 400;
-Level1.boundryTop = 50;
-Level1.boundryBottom = 300;
-Level1.keyInitial = new Point(250, 200);
-Level1.playerInitial = new Point(100, 50);
+export const LevelB1 = new GameBuilder();
+LevelB1.boundryLeft = 100;
+LevelB1.boundryRight = 700;
+LevelB1.boundryTop = 50;
+LevelB1.boundryBottom = 600;
+LevelB1.keyInitial = new Point(250, 200);
+LevelB1.playerInitial = new Point(100, 50);

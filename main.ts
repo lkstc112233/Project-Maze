@@ -1,12 +1,12 @@
 import { Point } from './xyTuple';
 import { Controller } from './Controller';
 import { loadedImageSum, totalImageSum, loadAll } from './Images';
-import { Level1 } from './Levels';
+import { LevelB1 } from './Levels';
 
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const context = canvas.getContext('2d')!;
 
-const game = Level1.build();
+const game = LevelB1.build();
 game.begin();
 
 const controller = new Controller();
