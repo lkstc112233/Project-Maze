@@ -11,22 +11,24 @@ export enum Status {
 }
 
 export class Builder {
-    boundryLeft: number = 0;
-    boundryTop: number = 0;
-    boundryRight: number = 100;
-    boundryBottom: number = 100;
+    left: number = 0;
+    top: number = 0;
+    width: number = 100;
+    height: number = 100;
 
     playerInitial: Point = new Point();
     keyInitial: Point = new Point();
 
     build(): Game {
         const result = new Game(
-            this.boundryLeft, 
-            this.boundryTop, 
-            this.boundryRight, 
-            this.boundryBottom,
+            this.width, 
+            this.height,
             this.playerInitial,
-            this.keyInitial);
+            this.keyInitial,
+            new Point(
+                this.left, 
+                this.top, ),
+        );
         return result;
     }
 }
@@ -34,16 +36,14 @@ export class Builder {
 class Boundry implements Sprite {
     readonly decay = false;
     constructor(
-        private readonly left: number, 
-        private readonly top: number, 
-        private readonly right: number,
-        private readonly bottom: number,
+        private readonly width: number,
+        private readonly height: number,
     ) {
 
     }
 
     get z(): number {
-        return this.top;
+        return 0;
     }
 
     draw(context: CanvasRenderingContext2D) {
@@ -52,7 +52,7 @@ class Boundry implements Sprite {
         context.beginPath();
         context.lineWidth = 5;
         context.strokeStyle = 'black';
-        context.rect(this.left, this.top, this.right - this.left, this.bottom - this.top);
+        context.rect(0, 0, this.width, this.height);
         context.stroke();
 
         context.restore();
@@ -67,18 +67,17 @@ class Game {
     private m_accelerate: Point = new Point();
 
     constructor(
-        private readonly boundryLeft: number, 
-        private readonly boundryTop: number,
-        private readonly boundryRight: number,
-        private readonly boundryBottom: number,
+        private readonly width: number,
+        private readonly height: number,
         readonly playerInitial: Point,
-        readonly keyInitial: Point
+        readonly keyInitial: Point,
+        private leftTopPoint: Point,
     ) {
         this.player.position = playerInitial.clone();
         this.key.position = keyInitial.clone();
         this.scene.add(this.player);
         this.scene.add(this.key);
-        this.scene.add(new Boundry(this.boundryLeft, this.boundryTop,this.boundryRight, this.boundryBottom));
+        this.scene.add(new Boundry(this.width, this.height));
     }
 
     get scene(): Scene {
@@ -111,21 +110,21 @@ class Game {
         this.player.velocity.plus(this.m_accelerate);
         this.player.update();
         // Boundry check
-        if (this.player.position.x < this.boundryLeft + 20) {
+        if (this.player.position.x < 20) {
             this.player.velocity.x = 0;
-            this.player.position.x = this.boundryLeft + 20;
+            this.player.position.x = 20;
         }
-        if (this.player.position.y < this.boundryTop) {
+        if (this.player.position.y < 0) {
             this.player.velocity.y = 0;
-            this.player.position.y = this.boundryTop;
+            this.player.position.y = 0;
         }
-        if (this.player.position.x > this.boundryRight - 20) {
+        if (this.player.position.x > this.width - 20) {
             this.player.velocity.x = 0;
-            this.player.position.x = this.boundryRight - 20;
+            this.player.position.x = this.width - 20;
         }
-        if (this.player.position.y > this.boundryBottom - 20) {
+        if (this.player.position.y > this.height - 20) {
             this.player.velocity.y = 0;
-            this.player.position.y = this.boundryBottom - 20;
+            this.player.position.y = this.height - 20;
         }
         if (this.playerKeyDistance < 20) {
             this.key.taken();
@@ -136,6 +135,9 @@ class Game {
     }
 
     draw(context: CanvasRenderingContext2D) {
+        context.save();
+        context.translate(this.leftTopPoint.x, this.leftTopPoint.y);
         this.scene.draw(context);
+        context.restore();
     }
 }
