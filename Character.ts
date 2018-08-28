@@ -122,6 +122,10 @@ export class Character implements Sprite {
         this.m_taken = true;
     }
 
+    untaken() {
+        this.m_taken = false;
+    }
+
     update() {
         // Update status
         this.velocity.mul(0.97);
