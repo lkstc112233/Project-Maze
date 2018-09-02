@@ -68,6 +68,8 @@ class Game {
     private chest: Chest = new Chest();
     private m_status = Status.IDLE;
     private controller: Controller = new Controller();
+    private useController = false;
+    private touching?: Point;
 
     constructor(
         private readonly width: number,
@@ -95,12 +97,23 @@ class Game {
     }
 
     touchBegin(point: Point) {
+        this.touching = point.clone();
+        this.touching.minus(this.leftTopPoint);
         this.controller.touchBegin(point);
     }
+
     touchUpdate(point: Point) {
+        if (this.touching) {
+            this.touching = point.clone();
+            this.touching.minus(this.leftTopPoint);
+        }
         this.controller.touchUpdate(point);
     }
+
     touchEnd() {
+        if (!this.useController) {
+            this.touching = undefined;
+        }
         this.controller.touchEnd();
     }
 
@@ -132,9 +145,19 @@ class Game {
             this.scene.update();
             return;
         }
-        const acc = this.controller.getControllerValue();
-        acc.mul(0.2);
-        this.player.velocity.plus(acc);
+        let accelerator: Point;
+        if (this.useController) {
+            accelerator = this.controller.getControllerValue();
+            accelerator.mul(0.2);
+        } else if (this.touching) {
+            accelerator = this.touching.clone();
+            accelerator.minus(this.player.position);
+            accelerator.normalize();
+            accelerator.mul(0.2);
+        } else {
+            accelerator = new Point();
+        }
+        this.player.velocity.plus(accelerator);
         this.player.update();
         // Boundry check
         if (this.player.position.x < 20) {
@@ -172,6 +195,8 @@ class Game {
         context.translate(this.leftTopPoint.x, this.leftTopPoint.y);
         this.scene.draw(context);
         context.restore();
-        this.controller.draw(context);
+        if (this.useController) {
+            this.controller.draw(context);
+        }
     }
 }
