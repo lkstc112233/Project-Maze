@@ -9,8 +9,6 @@ const context = canvas.getContext('2d')!;
 const game = LevelB1.build();
 game.begin();
 
-const controller = new Controller();
-
 function loadLoop() {
     if (loadedImageSum != totalImageSum) {
         requestAnimationFrame(loadLoop);
@@ -32,17 +30,15 @@ function loadLoop() {
 function gameLoop() {
     requestAnimationFrame(gameLoop);
     context.clearRect(0, 0, canvas.width, canvas.height);
-    game.accelerate = controller.getControllerValue();
     game.update();
     game.draw(context);
-    controller.draw(context);
 }
 
 canvas.addEventListener("touchmove",(ev) => {
     var rect = canvas.getBoundingClientRect();
     var x = ev.touches[0].clientX - rect.left;
     var y = ev.touches[0].clientY - rect.top;
-    controller.touchUpdate(new Point(x, y));
+    game.touchUpdate(new Point(x, y));
 });
 
 canvas.addEventListener("touchstart", (ev) => {
@@ -51,13 +47,13 @@ canvas.addEventListener("touchstart", (ev) => {
         var rect = canvas.getBoundingClientRect();
         var x = ev.touches[0].clientX - rect.left;
         var y = ev.touches[0].clientY - rect.top;
-        controller.touchBegin(new Point(x, y));
+        game.touchBegin(new Point(x, y));
     }
 });
 
 canvas.addEventListener("touchend", (ev) => {
     if (ev.touches.length == 0) {
-        controller.touchEnd();
+        game.touchEnd();
     }
 });
 
@@ -65,7 +61,7 @@ canvas.addEventListener("mousemove",(ev) => {
     var rect = canvas.getBoundingClientRect();
     var x = ev.clientX - rect.left;
     var y = ev.clientY - rect.top;
-    controller.touchUpdate(new Point(x, y));
+    game.touchUpdate(new Point(x, y));
 });
 
 canvas.addEventListener("mousedown", (ev) => {
@@ -73,13 +69,13 @@ canvas.addEventListener("mousedown", (ev) => {
         var rect = canvas.getBoundingClientRect();
         var x = ev.clientX - rect.left;
         var y = ev.clientY - rect.top;
-        controller.touchBegin(new Point(x, y));
+        game.touchBegin(new Point(x, y));
     }
 });
 
 canvas.addEventListener("mouseup", (ev) => {
     if (ev.button == 0) {
-        controller.touchEnd();
+        game.touchEnd();
     }
 });
 

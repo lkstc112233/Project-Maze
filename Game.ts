@@ -3,6 +3,7 @@ import { Character } from "./Character";
 import { Key } from "./Key";
 import { Point } from "./xyTuple";
 import { Chest } from "./Chest";
+import { Controller } from "./Controller";
 
 export enum Status {
     IDLE,
@@ -66,7 +67,7 @@ class Game {
     private key: Key = new Key();
     private chest: Chest = new Chest();
     private m_status = Status.IDLE;
-    private m_accelerate: Point = new Point();
+    private controller: Controller = new Controller();
 
     constructor(
         private readonly width: number,
@@ -93,9 +94,14 @@ class Game {
         return this.m_status;
     }
 
-    set accelerate(accelerate: Point) {
-        this.m_accelerate = accelerate.clone();
-        this.m_accelerate.mul(0.2);
+    touchBegin(point: Point) {
+        this.controller.touchBegin(point);
+    }
+    touchUpdate(point: Point) {
+        this.controller.touchUpdate(point);
+    }
+    touchEnd() {
+        this.controller.touchEnd();
     }
 
     private get playerKeyDistance(): number {
@@ -126,7 +132,9 @@ class Game {
             this.scene.update();
             return;
         }
-        this.player.velocity.plus(this.m_accelerate);
+        const acc = this.controller.getControllerValue();
+        acc.mul(0.2);
+        this.player.velocity.plus(acc);
         this.player.update();
         // Boundry check
         if (this.player.position.x < 20) {
@@ -164,5 +172,6 @@ class Game {
         context.translate(this.leftTopPoint.x, this.leftTopPoint.y);
         this.scene.draw(context);
         context.restore();
+        this.controller.draw(context);
     }
 }
