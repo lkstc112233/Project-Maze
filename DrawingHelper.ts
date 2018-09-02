@@ -1,4 +1,4 @@
-import { Images, ImagesLoaded } from './Images';
+import { Images, getLoadedImage } from './Images';
 
 export function circle(context: CanvasRenderingContext2D, x: number, y: number, radius: number, color: string | CanvasGradient | CanvasPattern) {
     context.beginPath();
@@ -8,7 +8,7 @@ export function circle(context: CanvasRenderingContext2D, x: number, y: number, 
 }
 
 export function drawCharacterImage(context: CanvasRenderingContext2D, image: keyof typeof Images, row: number, column: number, x: number, y: number, size: number) {
-    context.drawImage(ImagesLoaded[image], row * 16, column * 16, 16, 16, x - size / 2, y - size / 2, size, size);
+    context.drawImage(getLoadedImage(image), row * 16, column * 16, 16, 16, x - size / 2, y - size / 2, size, size);
 }
 
 export function drawKeyImage(context: CanvasRenderingContext2D, x: number, y: number, size: number, flip: boolean = false) {
@@ -17,7 +17,7 @@ export function drawKeyImage(context: CanvasRenderingContext2D, x: number, y: nu
         context.scale(-1, 1);
         x = -x;
     }
-    context.drawImage(ImagesLoaded['KEY'], x - size / 2, y - size / 2, size, size);
+    context.drawImage(getLoadedImage('KEY'), x - size / 2, y - size / 2, size, size);
     context.restore();
 }
 
@@ -27,5 +27,5 @@ export function drawChestImage(context: CanvasRenderingContext2D, process: numbe
     }
     const column = Math.floor(process / 4);
     const row = process % 4;
-    context.drawImage(ImagesLoaded['CHEST'], row * 35, column * 35, 35, 35, x - size / 2, y - size / 2, size, size);
+    context.drawImage(getLoadedImage('CHEST'), row * 35, column * 35, 35, 35, x - size / 2, y - size / 2, size, size);
 }
