@@ -20,7 +20,7 @@ export class Point {
         return point;
     }
 
-    get x() : number {
+    get x(): number {
         return this.m_x;
     }
 
@@ -28,7 +28,7 @@ export class Point {
         this.m_x = val;
     }
 
-    get y() : number {
+    get y(): number {
         return this.m_y;
     }
 
@@ -36,7 +36,7 @@ export class Point {
         this.m_y = val;
     }
 
-    plus(another:Point) {
+    plus(another: Point) {
         this.x += another.x;
         this.y += another.y;
     }

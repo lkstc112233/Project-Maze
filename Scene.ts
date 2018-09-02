@@ -12,17 +12,17 @@ export interface Sprite {
 export class Scene {
     private sprites: Sprite[] = [];
 
-    add(sprite:Sprite) {
+    add(sprite: Sprite) {
         this.sprites.push(sprite);
     }
 
     update() {
-        this.sprites = ([] as Sprite[]).concat(...(this.sprites.map((element) => [element].concat(element.generate?element.generate():[]))));
+        this.sprites = ([] as Sprite[]).concat(...(this.sprites.map((element) => [element].concat(element.generate ? element.generate() : []))));
         this.sprites = this.sprites.filter((element) => !element.decay);
     }
 
     draw(context: CanvasRenderingContext2D) {
         this.sprites = this.sprites.sort((sp1, sp2) => sp1.z - sp2.z);
-        this.sprites.map((element)=> element.draw(context));
+        this.sprites.map((element) => element.draw(context));
     }
 }

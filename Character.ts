@@ -67,7 +67,7 @@ class CharacterAfterImage implements Sprite {
         context.globalAlpha = this.lifeCountdown / 40;
         drawCharacter(
             context,
-            this.position.x, 
+            this.position.x,
             this.position.y,
             this.headOffset,
             WALKING_STEPS[Math.floor(this.frame / CHARACTER_WALKING_CONSTANT)],
@@ -144,7 +144,7 @@ export class Character implements Sprite {
 
         drawCharacter(
             context,
-            this.position.x, 
+            this.position.x,
             this.position.y,
             this.headOffset,
             WALKING_STEPS[Math.floor(this.frame / CHARACTER_WALKING_CONSTANT)],

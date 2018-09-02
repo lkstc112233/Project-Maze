@@ -34,7 +34,7 @@ function gameLoop() {
     game.draw(context);
 }
 
-canvas.addEventListener("touchmove",(ev) => {
+canvas.addEventListener("touchmove", (ev) => {
     var rect = canvas.getBoundingClientRect();
     var x = ev.touches[0].clientX - rect.left;
     var y = ev.touches[0].clientY - rect.top;
@@ -57,7 +57,7 @@ canvas.addEventListener("touchend", (ev) => {
     }
 });
 
-canvas.addEventListener("mousemove",(ev) => {
+canvas.addEventListener("mousemove", (ev) => {
     var rect = canvas.getBoundingClientRect();
     var x = ev.clientX - rect.left;
     var y = ev.clientY - rect.top;

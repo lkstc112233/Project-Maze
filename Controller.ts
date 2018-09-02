@@ -1,5 +1,5 @@
-import {Point} from './xyTuple'
-import {circle} from './DrawingHelper'
+import { Point } from './xyTuple'
+import { circle } from './DrawingHelper'
 
 export class Controller {
     private touchStart = new Point();
@@ -33,7 +33,7 @@ export class Controller {
         if (!this.isTouching) {
             return new Point();
         }
-        const result:Point = this.touching.clone();
+        const result: Point = this.touching.clone();
         result.minus(this.touchStart);
         result.mul(1 / 70);
         return result;

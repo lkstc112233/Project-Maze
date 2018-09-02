@@ -24,7 +24,7 @@ export class Builder {
 
     build(): Game {
         const result = new Game(
-            this.width, 
+            this.width,
             this.height,
             this.playerInitial,
             this.keyInitial,
