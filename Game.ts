@@ -74,18 +74,27 @@ class Game {
     constructor(
         private readonly width: number,
         private readonly height: number,
-        readonly playerInitial: Point,
-        readonly keyInitial: Point,
-        readonly chestInitial: Point,
+        private readonly playerInitial: Point,
+        private readonly keyInitial: Point,
+        private readonly chestInitial: Point,
         private leftTopPoint: Point,
     ) {
-        this.player.position = playerInitial.clone();
-        this.key.position = keyInitial.clone();
-        this.chest.position = chestInitial.clone();
+        this.reset();
+    }
+
+    reset(): Game {
+        this.player.reset();
+        this.player.position = this.playerInitial.clone();
+        this.key.reset();
+        this.key.position = this.keyInitial.clone();
+        this.chest.reset();
+        this.chest.position = this.chestInitial.clone();
+        this.scene.clear();
         this.scene.add(this.player);
         this.scene.add(this.key);
         this.scene.add(this.chest);
         this.scene.add(new Boundry(this.width, this.height));
+        return this;
     }
 
     get scene(): Scene {
