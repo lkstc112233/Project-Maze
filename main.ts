@@ -1,7 +1,7 @@
 import { Point } from './xyTuple';
 import { loadedImageSum, totalImageSum, loadAll } from './Images';
 import { LevelB1 } from './Levels';
-import { Button } from './Button';
+import { Button, ButtonSet } from './Button';
 
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const context = canvas.getContext('2d')!;
@@ -9,8 +9,11 @@ const context = canvas.getContext('2d')!;
 const game = LevelB1.build();
 game.begin();
 
+const buttons = new ButtonSet();
+
 const reset = new Button();
 reset.onclick = () => game.reset().begin();
+buttons.add(reset);
 
 function loadLoop() {
     if (loadedImageSum != totalImageSum) {
@@ -35,17 +38,18 @@ function gameLoop() {
     context.clearRect(0, 0, canvas.width, canvas.height);
     game.update();
     game.draw(context);
-    reset.draw(context);
+    buttons.draw(context);
 }
 
 canvas.addEventListener("touchmove", (ev) => {
-    if (reset.capturing) {
-        return;
-    }
     var rect = canvas.getBoundingClientRect();
     var x = ev.touches[0].clientX - rect.left;
     var y = ev.touches[0].clientY - rect.top;
-    game.touchUpdate(new Point(x, y));
+    const currentPoint = new Point(x, y);
+    if (buttons.mousemove(currentPoint)) {
+        return;
+    }
+    game.touchUpdate(currentPoint);
 });
 
 canvas.addEventListener("touchstart", (ev) => {
@@ -54,35 +58,34 @@ canvas.addEventListener("touchstart", (ev) => {
         var rect = canvas.getBoundingClientRect();
         var x = ev.touches[0].clientX - rect.left;
         var y = ev.touches[0].clientY - rect.top;
-        reset.mousedown(new Point(x, y));
-        if (reset.capturing) {
+        const currentPoint = new Point(x, y);
+        if (buttons.mousedown(currentPoint)) {
             return;
         }
-        game.touchBegin(new Point(x, y));
+        game.touchBegin(currentPoint);
     }
 });
 
 canvas.addEventListener("touchend", (ev) => {
     if (ev.touches.length == 0) {
-        if (reset.capturing) {
-            var rect = canvas.getBoundingClientRect();
-            var x = ev.changedTouches[0].clientX - rect.left;
-            var y = ev.changedTouches[0].clientY - rect.top;
-            reset.mouseup(new Point(x, y));
-            return;
-        }
+        var rect = canvas.getBoundingClientRect();
+        var x = ev.changedTouches[0].clientX - rect.left;
+        var y = ev.changedTouches[0].clientY - rect.top;
+        const currentPoint = new Point(x, y);
+        buttons.mouseup(currentPoint);
         game.touchEnd();
     }
 });
 
 canvas.addEventListener("mousemove", (ev) => {
-    if (reset.capturing) {
-        return;
-    }
     var rect = canvas.getBoundingClientRect();
     var x = ev.clientX - rect.left;
     var y = ev.clientY - rect.top;
-    game.touchUpdate(new Point(x, y));
+    const currentPoint = new Point(x, y);
+    if (buttons.mousemove(currentPoint)) {
+        return;
+    }
+    game.touchUpdate(currentPoint);
 });
 
 canvas.addEventListener("mousedown", (ev) => {
@@ -90,23 +93,21 @@ canvas.addEventListener("mousedown", (ev) => {
         var rect = canvas.getBoundingClientRect();
         var x = ev.clientX - rect.left;
         var y = ev.clientY - rect.top;
-        reset.mousedown(new Point(x, y));
-        if (reset.capturing) {
+        const currentPoint = new Point(x, y);
+        if (buttons.mousedown(currentPoint)) {
             return;
         }
-        game.touchBegin(new Point(x, y));
+        game.touchBegin(currentPoint);
     }
 });
 
 canvas.addEventListener("mouseup", (ev) => {
     if (ev.button == 0) {
-        if (reset.capturing) {
-            var rect = canvas.getBoundingClientRect();
-            var x = ev.clientX - rect.left;
-            var y = ev.clientY - rect.top;
-            reset.mouseup(new Point(x, y));
-            return;
-        }
+        var rect = canvas.getBoundingClientRect();
+        var x = ev.clientX - rect.left;
+        var y = ev.clientY - rect.top;
+        const currentPoint = new Point(x, y);
+        buttons.mouseup(currentPoint);
         game.touchEnd();
     }
 });
