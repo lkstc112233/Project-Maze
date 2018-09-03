@@ -29,6 +29,10 @@ export class Chest implements Sprite {
     private opening = false;
     position: Point = new Point();
 
+    reset() {
+        this.opening = false;
+    }
+
     get z(): number {
         return this.position.y;
     }

@@ -7,6 +7,11 @@ export class Key implements Sprite {
     private keyTaken = false;
     position: Point = new Point();
 
+    reset() {
+        this.floatingFrame = 0;
+        this.keyTaken = false;
+    }
+
     get z(): number {
         return this.position.y;
     }

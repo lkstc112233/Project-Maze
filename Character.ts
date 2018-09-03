@@ -90,6 +90,15 @@ export class Character implements Sprite {
     position = new Point();
     velocity = new Point();
 
+    reset() {
+        this.velocity.zero();
+        this.frame = 0;
+        this.headSpin = 0;
+        this.headOffset = 0;
+        this.afterImageCooldown = 0;
+        this.m_taken = false;
+    }
+
     get z(): number {
         return this.position.y + 40;
     }
