@@ -16,6 +16,10 @@ export class Scene {
         this.sprites.push(sprite);
     }
 
+    clear() {
+        this.sprites = [];
+    }
+
     update() {
         this.sprites = ([] as Sprite[]).concat(...(this.sprites.map((element) => [element].concat(element.generate ? element.generate() : []))));
         this.sprites = this.sprites.filter((element) => !element.decay);
