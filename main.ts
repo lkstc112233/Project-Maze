@@ -1,5 +1,4 @@
 import { Point } from './xyTuple';
-import { Controller } from './Controller';
 import { loadedImageSum, totalImageSum, loadAll } from './Images';
 import { LevelB1 } from './Levels';
 import { Button } from './Button';
