@@ -5,6 +5,8 @@ export enum Images {
     KEY = 'res/goldenkey.png',
     CHEST = 'res/treasure-chest.png',
     RESET_BUTTON = 'res/reset-button.png',
+    RESET_BUTTON_HOVER = 'res/reset-button-hover.png',
+    RESET_BUTTON_PRESSED = 'res/reset-button-pressed.png',
 }
 
 const ImagesLoaded: { [id: string]: HTMLImageElement } = {};
