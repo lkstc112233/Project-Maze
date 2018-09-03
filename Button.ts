@@ -22,7 +22,6 @@ export class Button {
     mouseup(point: Point) {
         if (this.captured && point.x > this.position.x && point.y > this.position.y &&
             point.x - this.position.x < this.width && point.y - this.position.y < this.height) {
-            console.log("clicked");
             if (this.onclick) {
                 this.onclick();
             }
