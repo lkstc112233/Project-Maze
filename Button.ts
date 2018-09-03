@@ -6,6 +6,7 @@ export class Button {
     width: number = 30;
     height: number = 30;
     private captured: boolean = false;
+    private hover: boolean = false;
     onclick?: () => void;
 
     get capturing(): boolean {
@@ -16,6 +17,15 @@ export class Button {
         if (point.x > this.position.x && point.y > this.position.y &&
             point.x - this.position.x < this.width && point.y - this.position.y < this.height) {
             this.captured = true;
+        }
+    }
+
+    mousemove(point: Point) {
+        if (point.x > this.position.x && point.y > this.position.y &&
+            point.x - this.position.x < this.width && point.y - this.position.y < this.height) {
+            this.hover = true;
+        } else {
+            this.hover = false;
         }
     }
 
@@ -59,7 +69,16 @@ export class ButtonSet {
     }
 
     mousemove(point: Point): boolean {
-        return this.buttons.reduce((handled, element) => handled || element.capturing, false);
+        return this.buttons.reduce((handled, element) => {
+            if (handled) {
+                return true;
+            }
+            element.mousemove(point);
+            if (element.capturing) {
+                return true;
+            }
+            return false;
+        }, false);
     }
 
     mouseup(point: Point) {
