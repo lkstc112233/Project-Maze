@@ -10,6 +10,7 @@ const game = LevelB1.build();
 game.begin();
 
 const reset = new Button();
+reset.onclick = () => game.reset().begin();
 
 function loadLoop() {
     if (loadedImageSum != totalImageSum) {
