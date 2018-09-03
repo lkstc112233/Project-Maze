@@ -1,5 +1,7 @@
 import { Point } from "./xyTuple";
-import { getLoadedImage } from "./Images";
+import { getLoadedImage, Images } from "./Images";
+
+export const resetImages: (keyof typeof Images)[] = ['RESET_BUTTON', 'RESET_BUTTON_HOVER', 'RESET_BUTTON_PRESSED'] as (keyof typeof Images)[];
 
 export class Button {
     position: Point = new Point();
@@ -8,6 +10,7 @@ export class Button {
     private captured: boolean = false;
     private hover: boolean = false;
     onclick?: () => void;
+    images: (keyof typeof Images)[] = resetImages;
 
     get capturing(): boolean {
         return this.captured;
@@ -40,7 +43,14 @@ export class Button {
     }
 
     draw(context: CanvasRenderingContext2D) {
-        context.drawImage(getLoadedImage('RESET_BUTTON'), this.position.x, this.position.y, this.width, this.height);
+        const drawImage = (key: number) => context.drawImage(getLoadedImage(this.images[key]), this.position.x, this.position.y, this.width, this.height);
+        if (!this.hover) {
+            drawImage(0);
+        } else if (this.capturing) {
+            drawImage(2);
+        } else {
+            drawImage(1);
+        }
     }
 }
 
