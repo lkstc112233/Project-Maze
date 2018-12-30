@@ -1,5 +1,5 @@
-import { Builder as GameBuilder } from './Game';
-import { Point } from './xyTuple';
+import {Builder as GameBuilder} from './Game';
+import {Point} from './xyTuple';
 
 export const LevelB1 = new GameBuilder();
 LevelB1.left = 100;
