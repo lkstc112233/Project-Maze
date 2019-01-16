@@ -16,5 +16,6 @@ export class TimeSlider implements Sprite {
   readonly decay = false;
 
   draw(context: CanvasRenderingContext2D) {
+    this.current += 1;
   }
 }
