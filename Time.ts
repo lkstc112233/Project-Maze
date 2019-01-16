@@ -11,6 +11,10 @@ export class TimeSlider implements Sprite {
     return this.m_current;
   }
 
+  get timeout() {
+    return this.m_current >= this.timelimit;
+  }
+
   reset() {
     this.m_current = 0;
     this.stopped = false;
