@@ -34,6 +34,9 @@ export class TimeSlider implements Sprite {
     if (!this.stopped) {
       this.m_current += 1;
     }
+    if (this.timeout) {
+      this.stop();
+    }
     var rate: number = this.current / this.timelimit;
     rate = Math.min(rate, 1);
 
