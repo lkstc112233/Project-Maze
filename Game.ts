@@ -17,6 +17,7 @@ export class Builder {
   top: number = 0;
   width: number = 100;
   height: number = 100;
+  timelimit: number = 600;
 
   playerInitial: Point = new Point();
   keyInitial: Point = new Point();
@@ -24,8 +25,8 @@ export class Builder {
 
   build(): Game {
     const result = new Game(
-        this.width, this.height, this.playerInitial, this.keyInitial,
-        this.chestInitial, new Point(this.left, this.top));
+        this.width, this.height, this.timelimit, this.playerInitial,
+        this.keyInitial, this.chestInitial, new Point(this.left, this.top));
     return result;
   }
 }
@@ -67,6 +68,7 @@ class Game {
   constructor(
       private readonly width: number,
       private readonly height: number,
+      private readonly timelimit: number,
       private readonly playerInitial: Point,
       private readonly keyInitial: Point,
       private readonly chestInitial: Point,
