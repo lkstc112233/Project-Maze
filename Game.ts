@@ -3,6 +3,7 @@ import {Chest} from './Chest';
 import {Controller} from './Controller';
 import {Key} from './Key';
 import {Scene, Sprite} from './Scene';
+import {TimeSlider} from './Time';
 import {Point} from './xyTuple';
 
 export enum Status {
@@ -89,6 +90,8 @@ class Game {
     this.scene.add(this.key);
     this.scene.add(this.chest);
     this.scene.add(new Boundry(this.width, this.height));
+    this.scene.add(
+        new TimeSlider(this.width, this.height + 10, this.timelimit));
     return this;
   }
 
