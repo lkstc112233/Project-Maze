@@ -17,5 +17,8 @@ export class TimeSlider implements Sprite {
 
   draw(context: CanvasRenderingContext2D) {
     this.current += 1;
+    var rate: number = this.current / this.timelimit;
+    rate = Math.min(rate, 1);
+
   }
 }
