@@ -147,6 +147,7 @@ class Game {
   }
 
   private win() {
+    this.timeSlider.stop();
     this.m_status = Status.WIN;
   }
 
