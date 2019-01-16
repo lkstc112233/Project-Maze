@@ -156,6 +156,12 @@ class Game {
       this.scene.update();
       return;
     }
+    if (this.timeSlider.timeout) {
+      this.m_status = Status.TIMEUP;
+      this.player.velocity.zero();
+      this.scene.update();
+      return;
+    }
     let accelerator: Point;
     if (this.useController) {
       accelerator = this.controller.getControllerValue();
