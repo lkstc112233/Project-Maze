@@ -2,7 +2,7 @@ import {Sprite} from './Scene'
 
 export class TimeSlider implements Sprite {
   private m_current: number = 0;
-
+  private stopped: boolean = false;
   constructor(
       private readonly width: number, private readonly y: number,
       private readonly timelimit: number) {}
@@ -13,6 +13,7 @@ export class TimeSlider implements Sprite {
 
   reset() {
     this.m_current = 0;
+    this.stopped = false;
   }
 
   get z(): number {
@@ -22,7 +23,9 @@ export class TimeSlider implements Sprite {
   readonly decay = false;
 
   draw(context: CanvasRenderingContext2D) {
-    this.m_current += 1;
+    if (!this.stopped) {
+      this.m_current += 1;
+    }
     var rate: number = this.current / this.timelimit;
     rate = Math.min(rate, 1);
 
