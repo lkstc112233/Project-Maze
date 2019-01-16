@@ -65,6 +65,7 @@ class Game {
   private controller: Controller = new Controller();
   private useController = false;
   private touching?: Point;
+  private readonly timeSlider: TimeSlider;
 
   constructor(
       private readonly width: number,
@@ -75,6 +76,8 @@ class Game {
       private readonly chestInitial: Point,
       private leftTopPoint: Point,
   ) {
+    this.timeSlider =
+        new TimeSlider(this.width, this.height + 10, this.timelimit);
     this.reset();
   }
 
@@ -85,13 +88,13 @@ class Game {
     this.key.position = this.keyInitial.clone();
     this.chest.reset();
     this.chest.position = this.chestInitial.clone();
+    this.timeSlider.reset();
     this.scene.clear();
     this.scene.add(this.player);
     this.scene.add(this.key);
     this.scene.add(this.chest);
     this.scene.add(new Boundry(this.width, this.height));
-    this.scene.add(
-        new TimeSlider(this.width, this.height + 10, this.timelimit));
+    this.scene.add(this.timeSlider);
     return this;
   }
 
