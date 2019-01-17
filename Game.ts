@@ -60,6 +60,7 @@ class Boundry implements Sprite {
 class Game {
   private m_scene: Scene = new Scene();
   private player: Character = new Character();
+  private playerPositionRecord: Point[] = [];
   private key: Key = new Key();
   private chest: Chest = new Chest();
   private m_status = Status.IDLE;
@@ -85,6 +86,7 @@ class Game {
   reset(): Game {
     this.player.reset();
     this.player.position = this.playerInitial.clone();
+    this.playerPositionRecord = [];
     this.key.reset();
     this.key.position = this.keyInitial.clone();
     this.chest.reset();
