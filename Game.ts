@@ -11,6 +11,7 @@ export enum Status {
   PLAYING,
   TIMEUP,
   WIN,
+  REWINDING,
 }
 
 export class Builder {
