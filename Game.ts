@@ -211,6 +211,7 @@ class Game {
           this.player.velocity.zero();
           this.win();
         }
+        break;
       }
     }
     this.scene.update();
