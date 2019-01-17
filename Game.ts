@@ -176,6 +176,9 @@ class Game {
       }
       this.player.velocity.plus(accelerator);
       this.player.update();
+      if (!this.timeSlider.stopped) {
+        this.playerPositionRecord.push(this.player.position.clone());
+      }
       // Boundry check
       if (this.player.position.x < 20) {
         this.player.velocity.x = 0;
