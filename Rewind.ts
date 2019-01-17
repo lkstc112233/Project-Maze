@@ -1,4 +1,5 @@
 import {Sprite} from './Scene';
+import {Point} from './xyTuple';
 export class Rewinder implements Sprite {
   private delayCount = 0;
   private playbackCount = 0;
