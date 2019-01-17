@@ -159,56 +159,58 @@ class Game {
   }
 
   update() {
-    if (this.status == Status.PLAYING) {
-      if (this.timeSlider.timeout) {
-        this.m_status = Status.TIMEUP;
-        this.player.velocity.zero();
-        this.scene.update();
-        return;
-      }
-      let accelerator: Point;
-      if (this.useController) {
-        accelerator = this.controller.getControllerValue();
-        accelerator.mul(0.2);
-      } else if (this.touching) {
-        accelerator = this.touching.clone();
-        accelerator.minus(this.player.position);
-        accelerator.normalize();
-        accelerator.mul(0.2);
-      } else {
-        accelerator = new Point();
-      }
-      this.player.velocity.plus(accelerator);
-      this.player.update();
-      if (!this.timeSlider.stopped) {
-        this.playerPositionRecord.push(this.player.position.clone());
-      }
-      // Boundry check
-      if (this.player.position.x < 20) {
-        this.player.velocity.x = 0;
-        this.player.position.x = 20;
-      }
-      if (this.player.position.y < 0) {
-        this.player.velocity.y = 0;
-        this.player.position.y = 0;
-      }
-      if (this.player.position.x > this.width - 20) {
-        this.player.velocity.x = 0;
-        this.player.position.x = this.width - 20;
-      }
-      if (this.player.position.y > this.height - 20) {
-        this.player.velocity.y = 0;
-        this.player.position.y = this.height - 20;
-      }
-      if (this.playerKeyDistance < 20) {
-        this.key.taken();
-        this.player.taken();
-      }
-      if (this.playerChestDistance < 20 && this.player.holding) {
-        this.chest.open();
-        this.player.untaken();
-        this.player.velocity.zero();
-        this.win();
+    switch (this.status) {
+      case Status.PLAYING: {
+        if (this.timeSlider.timeout) {
+          this.m_status = Status.TIMEUP;
+          this.player.velocity.zero();
+          this.scene.update();
+          return;
+        }
+        let accelerator: Point;
+        if (this.useController) {
+          accelerator = this.controller.getControllerValue();
+          accelerator.mul(0.2);
+        } else if (this.touching) {
+          accelerator = this.touching.clone();
+          accelerator.minus(this.player.position);
+          accelerator.normalize();
+          accelerator.mul(0.2);
+        } else {
+          accelerator = new Point();
+        }
+        this.player.velocity.plus(accelerator);
+        this.player.update();
+        if (!this.timeSlider.stopped) {
+          this.playerPositionRecord.push(this.player.position.clone());
+        }
+        // Boundry check
+        if (this.player.position.x < 20) {
+          this.player.velocity.x = 0;
+          this.player.position.x = 20;
+        }
+        if (this.player.position.y < 0) {
+          this.player.velocity.y = 0;
+          this.player.position.y = 0;
+        }
+        if (this.player.position.x > this.width - 20) {
+          this.player.velocity.x = 0;
+          this.player.position.x = this.width - 20;
+        }
+        if (this.player.position.y > this.height - 20) {
+          this.player.velocity.y = 0;
+          this.player.position.y = this.height - 20;
+        }
+        if (this.playerKeyDistance < 20) {
+          this.key.taken();
+          this.player.taken();
+        }
+        if (this.playerChestDistance < 20 && this.player.holding) {
+          this.chest.open();
+          this.player.untaken();
+          this.player.velocity.zero();
+          this.win();
+        }
       }
     }
     this.scene.update();
