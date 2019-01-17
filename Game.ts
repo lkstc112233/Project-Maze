@@ -2,6 +2,7 @@ import {Character} from './Character';
 import {Chest} from './Chest';
 import {Controller} from './Controller';
 import {Key} from './Key';
+import {Rewinder} from './Rewind';
 import {Scene, Sprite} from './Scene';
 import {TimeSlider} from './Time';
 import {Point} from './xyTuple';
@@ -211,6 +212,11 @@ class Game {
           this.player.velocity.zero();
           this.win();
         }
+        break;
+      }
+      case Status.REWINDING: {
+        this.scene.add(new Rewinder(this.playerPositionRecord));
+        this.m_status = Status.WIN;
         break;
       }
     }
