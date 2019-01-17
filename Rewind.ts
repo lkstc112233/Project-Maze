@@ -35,6 +35,11 @@ export class Rewinder implements Sprite {
   }
 
   generate(): Sprite[] {
+    if (this.delayCount++ > this.delay) {
+      if (this.playbackCount < this.positions.length) {
+        return [new Dotter(this.positions[this.playbackCount++])];
+      }
+    }
     return [];
   }
 
