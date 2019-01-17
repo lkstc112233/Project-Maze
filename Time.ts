@@ -2,7 +2,7 @@ import {Sprite} from './Scene'
 
 export class TimeSlider implements Sprite {
   private m_current: number = 0;
-  private stopped: boolean = false;
+  private m_stopped: boolean = false;
   constructor(
       private readonly width: number, private readonly y: number,
       private readonly timelimit: number) {}
@@ -11,17 +11,21 @@ export class TimeSlider implements Sprite {
     return this.m_current;
   }
 
+  get stopped() {
+    return this.m_stopped;
+  }
+
   get timeout() {
     return this.m_current >= this.timelimit;
   }
 
   stop() {
-    this.stopped = true;
+    this.m_stopped = true;
   }
 
   reset() {
     this.m_current = 0;
-    this.stopped = false;
+    this.m_stopped = false;
   }
 
   get z(): number {
