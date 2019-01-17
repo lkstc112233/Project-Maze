@@ -154,6 +154,10 @@ class Game {
     this.m_status = Status.WIN;
   }
 
+  rewind() {
+    this.m_status = Status.REWINDING;
+  }
+
   update() {
     if (this.status == Status.PLAYING) {
       if (this.timeSlider.timeout) {
