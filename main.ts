@@ -12,7 +12,7 @@ game.begin();
 const buttons = new ButtonSet();
 
 const reset = new Button();
-reset.onclick = () => game.reset().begin();
+reset.onclick = () => game.beginReset();
 buttons.add(reset);
 
 function loadLoop() {

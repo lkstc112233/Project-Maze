@@ -11,6 +11,7 @@ export enum Status {
   IDLE,
   PLAYING,
   TIMEUP,
+  RESETING,
   WIN,
   REWIND_INITIATED,
   REWINDING,
@@ -60,6 +61,8 @@ class Boundry implements Sprite {
   }
 }
 
+const RESET_PROCESS_LENGTH_HALF = 30;
+
 class Game {
   private m_scene: Scene = new Scene();
   private player: Character = new Character();
@@ -71,6 +74,7 @@ class Game {
   private useController = false;
   private touching?: Point;
   private rewinder?: Rewinder;
+  private resetProcess: number = 0;
   private readonly timeSlider: TimeSlider;
 
   constructor(
@@ -85,6 +89,15 @@ class Game {
     this.timeSlider =
         new TimeSlider(this.width, this.height + 10, this.timelimit);
     this.reset();
+  }
+
+  beginReset() {
+    this.m_status = Status.RESETING;
+    if (this.resetProcess > RESET_PROCESS_LENGTH_HALF &&
+        this.resetProcess < RESET_PROCESS_LENGTH_HALF * 2) {
+      this.resetProcess = RESET_PROCESS_LENGTH_HALF * 2 - this.resetProcess;
+    }
+    this.resetProcess = 0;
   }
 
   reset(): Game {
@@ -174,7 +187,7 @@ class Game {
     switch (this.status) {
       case Status.PLAYING: {
         if (this.timeSlider.timeout) {
-          this.m_status = Status.TIMEUP;
+          this.m_status = Status.RESETING;
           this.player.velocity.zero();
           this.scene.update();
           return;
@@ -225,6 +238,19 @@ class Game {
         }
         break;
       }
+      case Status.RESETING: {
+        if (this.resetProcess < RESET_PROCESS_LENGTH_HALF * 2) {
+          this.resetProcess += 1;
+        }
+        if (this.resetProcess == RESET_PROCESS_LENGTH_HALF) {
+          this.reset();
+        }
+        if (this.resetProcess == RESET_PROCESS_LENGTH_HALF * 2) {
+          this.resetProcess = 0;
+          this.begin();
+        }
+        break;
+      }
       case Status.REWIND_INITIATED: {
         this.scene.add(this.rewinder = new Rewinder(this.playerPositionRecord));
         this.m_status = Status.REWINDING;
@@ -242,6 +268,11 @@ class Game {
 
   draw(context: CanvasRenderingContext2D) {
     context.save();
+    if (this.status == Status.RESETING) {
+      context.globalAlpha =
+          Math.abs(this.resetProcess - RESET_PROCESS_LENGTH_HALF) /
+          RESET_PROCESS_LENGTH_HALF;
+    }
     context.translate(this.leftTopPoint.x, this.leftTopPoint.y);
     this.scene.draw(context);
     context.restore();
