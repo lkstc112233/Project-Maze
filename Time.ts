@@ -44,6 +44,10 @@ export class TimeSlider implements Sprite {
   readonly decay = false;
 
   draw(context: CanvasRenderingContext2D) {
+    // Won't be drawn when stopped.
+    if (this.m_stopped) {
+      return;
+    }
     var rate: number = this.current / this.timelimit;
     rate = Math.min(rate, 1);
 
