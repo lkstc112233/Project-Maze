@@ -238,6 +238,10 @@ class Game {
         }
         break;
       }
+      case Status.TIMEUP: {
+        this.m_status = Status.RESETING;
+        break;
+      }
       case Status.RESETING: {
         if (this.resetProcess < RESET_PROCESS_LENGTH_HALF * 2) {
           this.resetProcess += 1;
