@@ -28,6 +28,15 @@ export class TimeSlider implements Sprite {
     this.m_stopped = false;
   }
 
+  update() {
+    if (!this.stopped) {
+      this.m_current += 1;
+    }
+    if (this.timeout) {
+      this.stop();
+    }
+  }
+
   get z(): number {
     return 0;
   }
@@ -35,12 +44,6 @@ export class TimeSlider implements Sprite {
   readonly decay = false;
 
   draw(context: CanvasRenderingContext2D) {
-    if (!this.stopped) {
-      this.m_current += 1;
-    }
-    if (this.timeout) {
-      this.stop();
-    }
     var rate: number = this.current / this.timelimit;
     rate = Math.min(rate, 1);
 

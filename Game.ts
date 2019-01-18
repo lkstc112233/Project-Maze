@@ -201,6 +201,7 @@ class Game {
           this.scene.update();
           return;
         }
+        this.timeSlider.update();
         let accelerator: Point;
         if (this.useController) {
           accelerator = this.controller.getControllerValue();
