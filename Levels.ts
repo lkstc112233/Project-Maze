@@ -1,4 +1,5 @@
 import {Builder as GameBuilder} from './Game';
+import {Obstacle} from './Obstacle';
 import {Point} from './xyTuple';
 
 export const LevelB1 = new GameBuilder();
@@ -9,3 +10,6 @@ LevelB1.height = 550;
 LevelB1.keyInitial = new Point(250, 200);
 LevelB1.playerInitial = new Point(100, 50);
 LevelB1.chestInitial = new Point(400, 350);
+LevelB1.obstacles = [
+  new Obstacle(50, new Point(400, 100)), new Obstacle(200, new Point(100, 400))
+];
