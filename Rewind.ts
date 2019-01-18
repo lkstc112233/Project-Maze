@@ -31,6 +31,10 @@ export class Rewinder implements Sprite {
 
   readonly z = 0;
   get decay(): boolean {
+    return this.completed;
+  }
+
+  get completed(): boolean {
     return this.playbackCount >= this.positions.length;
   }
 
