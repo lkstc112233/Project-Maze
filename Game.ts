@@ -25,6 +25,7 @@ export class Builder {
   width: number = 100;
   height: number = 100;
   timelimit: number = 600;
+  scale: number = 1;
 
   playerInitial: Point = new Point();
   keyInitial: Point = new Point();
@@ -33,7 +34,7 @@ export class Builder {
 
   build(): Game {
     const result = new Game(
-        this.width, this.height, this.timelimit, this.playerInitial,
+        this.width, this.height, this.scale, this.timelimit, this.playerInitial,
         this.keyInitial, this.chestInitial, this.obstacles,
         new Point(this.left, this.top));
     return result;
@@ -83,6 +84,7 @@ class Game {
   constructor(
       private readonly width: number,
       private readonly height: number,
+      private readonly scale: number,
       private readonly timelimit: number,
       private readonly playerInitial: Point,
       private readonly keyInitial: Point,
@@ -138,6 +140,7 @@ class Game {
   touchBegin(point: Point) {
     this.touching = point.clone();
     this.touching.minus(this.leftTopPoint);
+    this.touching.mul(1 / this.scale);
     this.controller.touchBegin(point);
   }
 
@@ -145,6 +148,7 @@ class Game {
     if (this.touching) {
       this.touching = point.clone();
       this.touching.minus(this.leftTopPoint);
+      this.touching.mul(1 / this.scale);
     }
     this.controller.touchUpdate(point);
   }
@@ -298,6 +302,7 @@ class Game {
           RESET_PROCESS_LENGTH_HALF;
     }
     context.translate(this.leftTopPoint.x, this.leftTopPoint.y);
+    context.scale(this.scale, this.scale);
     this.scene.draw(context);
     context.restore();
     if (this.useController) {
