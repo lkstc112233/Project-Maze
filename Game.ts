@@ -12,6 +12,7 @@ export enum Status {
   PLAYING,
   TIMEUP,
   WIN,
+  REWIND_INITIATED,
   REWINDING,
   REWIND_COMPLETE,
 }
@@ -69,6 +70,7 @@ class Game {
   private controller: Controller = new Controller();
   private useController = false;
   private touching?: Point;
+  private rewinder?: Rewinder;
   private readonly timeSlider: TimeSlider;
 
   constructor(
@@ -157,7 +159,7 @@ class Game {
   }
 
   rewind() {
-    this.m_status = Status.REWINDING;
+    this.m_status = Status.REWIND_INITIATED;
   }
 
   update() {
@@ -215,9 +217,15 @@ class Game {
         }
         break;
       }
+      case Status.REWIND_INITIATED: {
+        this.scene.add(this.rewinder = new Rewinder(this.playerPositionRecord));
+        this.m_status = Status.REWINDING;
+        break;
+      }
       case Status.REWINDING: {
-        this.scene.add(new Rewinder(this.playerPositionRecord));
-        this.m_status = Status.REWIND_COMPLETE;
+        if (this.rewinder && this.rewinder.completed) {
+          this.m_status = Status.REWIND_COMPLETE;
+        }
         break;
       }
     }
