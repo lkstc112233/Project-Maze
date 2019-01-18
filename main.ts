@@ -37,6 +37,9 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
   context.clearRect(0, 0, canvas.width, canvas.height);
   game.update();
+  if (game.won) {
+    game.rewind();
+  }
   game.draw(context);
   buttons.draw(context);
 }
