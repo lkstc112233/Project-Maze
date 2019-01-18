@@ -13,6 +13,7 @@ export enum Status {
   TIMEUP,
   WIN,
   REWINDING,
+  REWIND_COMPLETE,
 }
 
 export class Builder {
@@ -216,7 +217,7 @@ class Game {
       }
       case Status.REWINDING: {
         this.scene.add(new Rewinder(this.playerPositionRecord));
-        this.m_status = Status.WIN;
+        this.m_status = Status.REWIND_COMPLETE;
         break;
       }
     }
