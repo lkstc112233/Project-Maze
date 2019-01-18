@@ -2,6 +2,7 @@ import {Character} from './Character';
 import {Chest} from './Chest';
 import {Controller} from './Controller';
 import {Key} from './Key';
+import {Obstacle} from './Obstacle';
 import {Rewinder} from './Rewind';
 import {Scene, Sprite} from './Scene';
 import {TimeSlider} from './Time';
@@ -28,11 +29,13 @@ export class Builder {
   playerInitial: Point = new Point();
   keyInitial: Point = new Point();
   chestInitial: Point = new Point();
+  obstacles: Obstacle[] = [];
 
   build(): Game {
     const result = new Game(
         this.width, this.height, this.timelimit, this.playerInitial,
-        this.keyInitial, this.chestInitial, new Point(this.left, this.top));
+        this.keyInitial, this.chestInitial, this.obstacles,
+        new Point(this.left, this.top));
     return result;
   }
 }
@@ -84,6 +87,7 @@ class Game {
       private readonly playerInitial: Point,
       private readonly keyInitial: Point,
       private readonly chestInitial: Point,
+      private readonly obstacles: Obstacle[],
       private leftTopPoint: Point,
   ) {
     this.timeSlider =
@@ -113,6 +117,7 @@ class Game {
     this.scene.add(this.player);
     this.scene.add(this.key);
     this.scene.add(this.chest);
+    this.obstacles.map((element) => this.scene.add(element));
     this.scene.add(new Boundry(this.width, this.height));
     this.scene.add(this.timeSlider);
     return this;
@@ -226,6 +231,16 @@ class Game {
           this.player.velocity.y = 0;
           this.player.position.y = this.height - 20;
         }
+        this.obstacles.map((element) => {
+          const dx = element.position.x - this.player.position.x;
+          const dy = element.position.y - this.player.position.y - 20;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < element.radius) {
+            const ratio = 1 - distance / element.radius;
+            this.player.position.x -= ratio * dx;
+            this.player.position.y -= ratio * dy;
+          }
+        });
         if (this.playerKeyDistance < 20) {
           this.key.taken();
           this.player.taken();
