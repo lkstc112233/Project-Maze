@@ -37,7 +37,7 @@ export class Key implements Sprite {
 
     // Paint
     context.save();
-    context.globalAlpha = Math.sin(this.floatingFrame) * 0.3 + 0.4;
+    context.globalAlpha *= Math.sin(this.floatingFrame) * 0.3 + 0.4;
     context.beginPath();
     context.fillStyle = '#000';
     context.ellipse(
