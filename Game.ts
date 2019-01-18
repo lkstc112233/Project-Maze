@@ -117,7 +117,11 @@ class Game {
     this.scene.add(this.player);
     this.scene.add(this.key);
     this.scene.add(this.chest);
-    this.obstacles.map((element) => this.scene.add(element));
+    this.obstacles.map((element) => {
+      this.scene.add(element);
+      element.width = this.width;
+      element.height = this.height;
+    });
     this.scene.add(new Boundry(this.width, this.height));
     this.scene.add(this.timeSlider);
     return this;
