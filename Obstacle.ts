@@ -2,8 +2,7 @@ import {Sprite} from './Scene'
 import {Point} from './xyTuple'
 
 export class Obstacle implements Sprite {
-  constructor(
-      private readonly radious: number, private readonly position: Point) {}
+  constructor(readonly radious: number, readonly position: Point) {}
 
   get z(): number {
     return this.position.y;
@@ -15,5 +14,14 @@ export class Obstacle implements Sprite {
     return [];
   }
 
-  draw(context: CanvasRenderingContext2D) {}
+  draw(context: CanvasRenderingContext2D) {
+    context.save();
+    context.fillStyle = 'black';
+    context.beginPath();
+    context.ellipse(
+        this.position.x, this.position.y, this.radious, this.radious, 0, 0,
+        360);
+    context.fill();
+    context.restore();
+  }
 }
