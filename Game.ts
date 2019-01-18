@@ -158,8 +158,16 @@ class Game {
     this.m_status = Status.WIN;
   }
 
+  get won(): boolean {
+    return this.status == Status.WIN;
+  }
+
   rewind() {
     this.m_status = Status.REWIND_INITIATED;
+  }
+
+  get rewindCompleted(): boolean {
+    return this.status == Status.REWIND_COMPLETE;
   }
 
   update() {
