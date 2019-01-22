@@ -20,6 +20,7 @@ Level1.width = 400;
 Level1.top = 100;
 Level1.height = 400;
 Level1.timelimit = 80;
+Level1.scale = 0.8;
 Level1.keyInitial = new Point(200, 200);
 Level1.playerInitial = new Point(200, 50);
 Level1.chestInitial = new Point(200, 350);
