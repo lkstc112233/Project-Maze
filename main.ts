@@ -17,10 +17,6 @@ const levels = [tutorial];
 
 const buttons = new ButtonSet();
 
-const reset = new Button();
-reset.onclick = () => tutorial.beginReset();
-buttons.add(reset);
-
 function loadLoop() {
   if (loadedImageSum != totalImageSum) {
     requestAnimationFrame(loadLoop);
