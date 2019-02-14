@@ -40,7 +40,27 @@ function loadLoop() {
 }
 
 function tutorialLoop() {
-  requestAnimationFrame(tutorialLoop);
+  if (!tutorial.rewindCompleted) {
+    requestAnimationFrame(tutorialLoop);
+  } else {
+	levels.length = 0;
+	levels.push(level1);
+	levels.push(level2);
+	levels.push(level3);
+	level1.begin();
+	requestAnimationFrame(gameLoop);
+  }
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  levels.map((element) => element.update());
+  if (tutorial.won) {
+    tutorial.rewind();
+  }
+  levels.map((element) => element.draw(context));
+  buttons.draw(context);
+}
+
+function gameLoop() {
+  requestAnimationFrame(gameLoop);
   context.clearRect(0, 0, canvas.width, canvas.height);
   levels.map((element) => element.update());
   if (tutorial.won) {
