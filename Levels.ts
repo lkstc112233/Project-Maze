@@ -25,5 +25,6 @@ Level1.keyInitial = new Point(200, 200);
 Level1.playerInitial = new Point(200, 50);
 Level1.chestInitial = new Point(200, 350);
 Level1.obstacles = [
-  new Obstacle(125, new Point(50, 200)), new Obstacle(125, new Point(350, 200))
+  new Obstacle(125, new Point(50, 200)),
+  new Obstacle(125, new Point(350, 200)),
 ];
