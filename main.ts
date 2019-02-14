@@ -43,8 +43,7 @@ function tutorialLoop() {
 	levels.push(level1);
 	levels.push(level2);
 	levels.push(level3);
-	level1.begin();
-	requestAnimationFrame(gameLoop);
+	requestAnimationFrame(transformLoop);
   }
   context.clearRect(0, 0, canvas.width, canvas.height);
   levels.map((element) => element.update());
@@ -52,6 +51,26 @@ function tutorialLoop() {
     tutorial.rewind();
   }
   levels.map((element) => element.draw(context));
+  buttons.draw(context);
+}
+
+var transformProcess = 0;
+const TRANSFORM_LENGTH = 100;
+function transformLoop() {
+  if ((transformProcess += 1) < TRANSFORM_LENGTH) {
+    requestAnimationFrame(transformLoop);
+  } else {
+	level1.begin();
+	requestAnimationFrame(gameLoop);
+  }
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  levels.map((element) => element.update());
+  context.save();
+  context.globalAlpha = (TRANSFORM_LENGTH - transformProcess) / TRANSFORM_LENGTH;
+  tutorial.draw(context);
+  context.globalAlpha = 1 - context.globalAlpha;
+  levels.map((element) => element.draw(context));
+  context.restore();
   buttons.draw(context);
 }
 
