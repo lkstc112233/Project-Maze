@@ -28,3 +28,20 @@ Level1.obstacles = [
   new Obstacle(125, new Point(50, 200)),
   new Obstacle(125, new Point(350, 200)),
 ];
+
+export const Level2 = new GameBuilder();
+Level2.left = 550;
+Level2.width = 400;
+Level2.top = 100;
+Level2.height = 400;
+Level2.timelimit = 290;
+Level2.scale = 0.8;
+Level2.keyInitial = new Point(200, 350);
+Level2.playerInitial = new Point(200, 25);
+Level2.chestInitial = new Point(200, 25);
+Level2.obstacles = [
+  new Obstacle(100, new Point(125, 125)),
+  new Obstacle(100, new Point(275, 125)),
+  new Obstacle(200, new Point(0, 400)),
+  new Obstacle(200, new Point(400, 400)),
+];
