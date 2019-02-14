@@ -1,6 +1,6 @@
 import {Button, ButtonSet} from './Button';
 import {loadAll, loadedImageSum, totalImageSum} from './Images';
-import {LevelB1} from './Levels';
+import {LevelB1, Level1, Level2, Level3} from './Levels';
 import {Point} from './xyTuple';
 
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
@@ -8,6 +8,9 @@ const context = canvas.getContext('2d')!;
 
 // TODO: Update size by view
 const tutorial = LevelB1.build();
+const level1 = Level1.build();
+const level2 = Level2.build();
+const level3 = Level3.build();
 tutorial.begin();
 
 const buttons = new ButtonSet();
