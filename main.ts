@@ -78,8 +78,25 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
   context.clearRect(0, 0, canvas.width, canvas.height);
   levels.map((element) => element.update());
-  if (tutorial.won) {
-    tutorial.rewind();
+  if (level1.won) {
+	level1.idle();
+    level2.begin();
+  }
+  if (level2.won) {
+	level2.idle();
+	level3.begin();
+  }
+  if (level3.won) {
+	level3.idle();
+	level1.rewind();
+  }
+  if (level1.rewindCompleted) {
+	level1.idle();
+	level2.rewind();
+  }
+  if (level2.rewindCompleted) {
+	level2.idle();
+	level3.rewind();
   }
   levels.map((element) => element.draw(context));
   buttons.draw(context);
