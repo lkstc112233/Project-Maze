@@ -45,7 +45,7 @@ Level2.obstacles = [
 ];
 
 export const Level3 = new GameBuilder();
-Level3.left = 1100;
+Level3.left = 1000;
 Level3.width = 400;
 Level3.top = 100;
 Level3.height = 400;
