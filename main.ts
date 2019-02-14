@@ -13,6 +13,8 @@ const level2 = Level2.build();
 const level3 = Level3.build();
 tutorial.begin();
 
+const levels = [tutorial];
+
 const buttons = new ButtonSet();
 
 const reset = new Button();
@@ -40,11 +42,11 @@ function loadLoop() {
 function gameLoop() {
   requestAnimationFrame(gameLoop);
   context.clearRect(0, 0, canvas.width, canvas.height);
-  tutorial.update();
+  levels.map((element) => element.update());
   if (tutorial.won) {
     tutorial.rewind();
   }
-  tutorial.draw(context);
+  levels.map((element) => element.draw(context));
   buttons.draw(context);
 }
 
@@ -56,7 +58,7 @@ canvas.addEventListener('touchmove', (ev) => {
   if (buttons.mousemove(currentPoint)) {
     return;
   }
-  tutorial.touchUpdate(currentPoint);
+  levels.map((element) => element.touchUpdate(currentPoint));
 });
 
 canvas.addEventListener('touchstart', (ev) => {
@@ -69,7 +71,7 @@ canvas.addEventListener('touchstart', (ev) => {
     if (buttons.mousedown(currentPoint)) {
       return;
     }
-    tutorial.touchBegin(currentPoint);
+    levels.map((element) => element.touchBegin(currentPoint));
   }
 });
 
@@ -80,7 +82,7 @@ canvas.addEventListener('touchend', (ev) => {
     var y = ev.changedTouches[0].clientY - rect.top;
     const currentPoint = new Point(x, y);
     buttons.mouseup(currentPoint);
-    tutorial.touchEnd();
+    levels.map((element) => element.touchEnd());
   }
 });
 
@@ -92,7 +94,7 @@ canvas.addEventListener('mousemove', (ev) => {
   if (buttons.mousemove(currentPoint)) {
     return;
   }
-  tutorial.touchUpdate(currentPoint);
+  levels.map((element) => element.touchUpdate(currentPoint));
 });
 
 canvas.addEventListener('mousedown', (ev) => {
@@ -104,7 +106,7 @@ canvas.addEventListener('mousedown', (ev) => {
     if (buttons.mousedown(currentPoint)) {
       return;
     }
-    tutorial.touchBegin(currentPoint);
+    levels.map((element) => element.touchBegin(currentPoint));
   }
 });
 
@@ -115,7 +117,7 @@ canvas.addEventListener('mouseup', (ev) => {
     var y = ev.clientY - rect.top;
     const currentPoint = new Point(x, y);
     buttons.mouseup(currentPoint);
-    tutorial.touchEnd();
+    levels.map((element) => element.touchEnd());
   }
 });
 
