@@ -35,12 +35,12 @@ function loadLoop() {
     context.lineTo(canvas.width, canvas.height / 2);
     context.stroke();
   } else {
-    requestAnimationFrame(gameLoop);
+    requestAnimationFrame(tutorialLoop);
   }
 }
 
-function gameLoop() {
-  requestAnimationFrame(gameLoop);
+function tutorialLoop() {
+  requestAnimationFrame(tutorialLoop);
   context.clearRect(0, 0, canvas.width, canvas.height);
   levels.map((element) => element.update());
   if (tutorial.won) {
