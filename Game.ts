@@ -188,6 +188,10 @@ class Game {
     return this.status == Status.WIN;
   }
 
+  idle() {
+	this.m_status = Status.IDLE;
+  }
+
   rewind() {
     this.m_status = Status.REWIND_INITIATED;
   }
