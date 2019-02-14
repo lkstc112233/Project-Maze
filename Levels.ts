@@ -20,7 +20,6 @@ Level1.width = 400;
 Level1.top = 100;
 Level1.height = 400;
 Level1.timelimit = 80;
-Level1.scale = 0.8;
 Level1.keyInitial = new Point(200, 200);
 Level1.playerInitial = new Point(200, 50);
 Level1.chestInitial = new Point(200, 350);
@@ -35,7 +34,6 @@ Level2.width = 400;
 Level2.top = 100;
 Level2.height = 400;
 Level2.timelimit = 290;
-Level2.scale = 0.8;
 Level2.keyInitial = new Point(200, 350);
 Level2.playerInitial = new Point(200, 25);
 Level2.chestInitial = new Point(200, 25);
@@ -44,4 +42,17 @@ Level2.obstacles = [
   new Obstacle(100, new Point(275, 125)),
   new Obstacle(200, new Point(0, 400)),
   new Obstacle(200, new Point(400, 400)),
+];
+
+export const Level3 = new GameBuilder();
+Level3.left = 1100;
+Level3.width = 400;
+Level3.top = 100;
+Level3.height = 400;
+Level3.timelimit = 175;
+Level3.keyInitial = new Point(200, 340);
+Level3.playerInitial = new Point(50, 50);
+Level3.chestInitial = new Point(350, 50);
+Level3.obstacles = [
+  new Obstacle(150, new Point(200, 150)),
 ];
