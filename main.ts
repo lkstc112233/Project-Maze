@@ -7,6 +7,41 @@ const canvas = document.getElementById('canvas') as HTMLCanvasElement;
 const context = canvas.getContext('2d')!;
 
 // TODO: Update size by view
+if (canvas.width > canvas.height) {
+  var margin = canvas.width / 30;
+  var scale = margin * 8 / 400;
+  Level1.top = 2 * margin;
+  Level2.top = 2 * margin;
+  Level3.top = 2 * margin;
+  Level1.left = 2 * margin;
+  Level2.left = 11 * margin;
+  Level3.left = 20 * margin;
+  Level1.scale = scale;
+  Level2.scale = scale;
+  Level3.scale = scale;
+  margin = canvas.height / 12;
+  scale = margin * 8 / 550;
+  LevelB1.top = 2 * margin;
+  LevelB1.left = 2 * margin;
+  LevelB1.scale = scale;
+} else {
+  var margin = canvas.width / 21;
+  var scale = margin * 8 / 400;
+  Level1.top = 2 * margin;
+  Level2.top = 11 * margin;
+  Level3.top = 2 * margin;
+  Level1.left = 2 * margin;
+  Level2.left = 6.5 * margin;
+  Level3.left = 11 * margin;
+  Level1.scale = scale;
+  Level2.scale = scale;
+  Level3.scale = scale;
+  margin = canvas.width / 12;
+  scale = margin * 8 / 600;
+  LevelB1.top = 2 * margin;
+  LevelB1.left = 2 * margin;
+  LevelB1.scale = scale;
+}
 const tutorial = LevelB1.build();
 const level1 = Level1.build();
 const level2 = Level2.build();
