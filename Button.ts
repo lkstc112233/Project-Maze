@@ -73,7 +73,7 @@ export class ButtonSet {
 
   // Returns true if the message is consumed by any of the button.
   mousedown(point: Point): boolean {
-    return this.buttons.reduce((handled, element) => {
+    return this.buttons.reduce((handled: boolean, element) => {
       if (handled) {
         return true;
       }
@@ -86,7 +86,7 @@ export class ButtonSet {
   }
 
   mousemove(point: Point): boolean {
-    return this.buttons.reduce((handled, element) => {
+    return this.buttons.reduce((handled: boolean, element) => {
       if (handled) {
         return true;
       }
